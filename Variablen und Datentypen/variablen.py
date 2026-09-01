@@ -2,7 +2,6 @@
 # mit cmd + a ganzen Text markieren oder nur den gewünschten bereich markeiren
 # mit shift + enter code ausführen und in Terminal anzeigen
 
-
 # formatierter String
 # benötigen ein f im code
 name = "Denis"
@@ -25,3 +24,51 @@ age3 = "Achtzehn"
 import keyword
 
 print(keyword)
+
+
+# ÜBUNGSAUFGABEN
+# 1 Welche der folgenden Variablennamen sind in Python gültig und welche nicht?
+
+# python123 -> gültig
+# 0815 -> ungültig
+# __python__ -> gültig
+# Fehler -> gültig
+# false -> gültig
+# hallo_welt -> gültig
+# True -> ungültig
+# nicht-richtig -> ungültig
+# tmp.2 -> ungültig
+# yield -> ungültig
+
+
+#2 Gegeben seien die folgenden Variablen
+# Vertausche die Werte der beiden Variablen vorname und nachname, damit der Vor- und Nachname richtig zugewiesen ist
+
+vorname = "Mustermann"
+nachname = "Max"
+
+vorname, nachname = nachname, vorname 
+
+
+#3 Gegeben sei das folgende Python-Programm
+a = 42
+b = a
+c = a
+a = 10
+b = c
+
+#Welche Werte werden in den folgenden Zeilen ausgegeben?
+# print(a) -> 10
+# print(b) -> 42
+# print(c) -> 42
+
+
+#4 Gegeben sei das folgende Python-Programm:
+vorname = "Misa"
+nachname = "Amani"
+geschlecht = "weiblich"
+tag = 22
+monat = "September"
+jahr = "1998"
+
+print(f"""Mein Name ist {vorname} {nachname}.\nIch bin {geschlecht} und wurde am {tag}. {monat} {jahr} geboren.""")
