@@ -26,7 +26,7 @@ import keyword
 print(keyword)
 
 
-# ÜBUNGSAUFGABEN
+# ÜBUNGSAUFGABEN VARIABLEN
 # 1 Welche der folgenden Variablennamen sind in Python gültig und welche nicht?
 
 # python123 -> gültig
@@ -58,9 +58,9 @@ a = 10
 b = c
 
 #Welche Werte werden in den folgenden Zeilen ausgegeben?
-# print(a) -> 10
-# print(b) -> 42
-# print(c) -> 42
+print(a) #-> 10
+print(b) #-> 42
+print(c) #-> 42
 
 
 #4 Gegeben sei das folgende Python-Programm:
@@ -72,3 +72,33 @@ monat = "September"
 jahr = "1998"
 
 print(f"""Mein Name ist {vorname} {nachname}.\nIch bin {geschlecht} und wurde am {tag}. {monat} {jahr} geboren.""")
+
+
+# DATENTYPEN
+name = "Denis"      # string
+age = 29            # integer (ganze Zahlen!)
+highage = 100_000   # integer (ganzzahl die zu besseren lesbarkeit mit underscore getrennt werden können)
+weight = 85.3       # float (kommazahlen)
+antwort = True      # true oder false, wichtig Großschreiben!
+
+# Datentypen ausgeben lassen mit type()
+print(type(name))
+
+# Datentypen umwandeln
+str()               # Wert in String umwandeln 
+int()               # Wert in Interger umwandeln
+float()             # Wert in Float umwandeln
+
+
+# ÜBUNGSAUFGABEN DATENTYPEN
+# Welche der folgenden Umwandlungen sind möglich und was ist das Ergebnis?
+int(42.5)           # 42
+float(-1)           # -1.0
+str(0.5)            # "0.5"
+bool(0.001)         # true
+str("False")        # "False"
+int(False)          # 0
+float("10")         # 10.0
+bool('0')           # true -> weil ein nicht leerer string übergeben würde. Wenn int übergeben wprden wäre wäre ergbns false
+int("False")        # ungültig
+float("True")       # ungültig
