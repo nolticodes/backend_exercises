@@ -1,0 +1,136 @@
+# Datenstrukturen
+
+# Listen
+
+list = [29, "Denis", True]          # verschiedene Datentypen könnenn in einer Liste gespeicher werden
+print(len(list))                    # 3
+print(list[2])                      # True
+print(list[-1])                     # True
+
+newList = list[0:1]                 # [29, "Denis"]
+
+# Listen Methoden
+
+zahlen = [0, 1, 2, 3, 4]
+andereZahlen = [5, 6, 7, 8]
+alleZahlen = zahlen + andereZahlen
+print(alleZahlen)                   # [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+bits = [0, 1]
+mehrBits = print(bits * 3)          # [0, 1, 0, 1, 0, 1]
+
+zahlen.append(5)                    # kann immer nur ein Element hinzufügen
+print(zahlen)                       # [0, 1, 2, 3, 4, 5]
+
+numbers = [3, 6, 1, 5]
+print(zahlen.sort())                # [1, 3, 5, 6] 
+print(zahlen.sort(reverse=True))    # [6, 5, 3, 1]
+print(numbers.remove(5))            # [6, 3, 1]
+
+zahlenreihe = [0, 1, 2, 3, 5, 6, 7]
+zahlenreihe.insert(4, 4)            # Fügt an dem index 4 die Zahl 4 hinzue
+print(zahlenreihe)                  # [0, 1, 2, 3, 4, 5, 6, 7]
+
+copy = zahlenreihe.copy()           
+zahlenreihe.clear()
+print(zahlenreihe)                  # []
+
+zahlenreihe.index(2)                # 3
+zahlenreihe.index(10)               # error
+print(3 in zahlenreihe)             # true
+print(10 in zahlenreihe)            # false
+
+alphabet = ["a", "b", "c", "d"]            
+print(";".join(alphabet))           # a;b;c;d   join() kann nur strings mit einem deifnierten Zeichen zusammenführen
+
+
+
+# Tupel
+tupel = (1, 3, 5, 6, 7)             # feste Datenstruktur, kann nicht verändert werden
+
+def addieren(a, b):
+    summe = a + b
+    return a, b, summe
+
+ergbnis = addieren(1, 4)
+print(type(ergbnis))                # tupel     wenn mehrere Werte mit Return zurückgegeben werden, dann entseht ein tupel. bei einem return wert nicht
+
+# Tupel Methoden
+neuesTupel = (1, 2, 3) + (4, 5)
+print(neuesTupel)                   # (1, 2, 3, 4, 5)       einzelen Tupels können zusammengeführt werden, aber nicht die einzelnen nicht verändert werden
+n = neuesTupel.count(1)             # Anzahl 1
+
+list = list(neuesTupel)
+print(list)                         # [1, 2, 3, 4, 5]
+print(type(list))                   # class list            jetzt können listen methoden angewandt werden (soriteren, hinzufügen, entfernen, ...)
+
+
+# Sets
+leeresSet = set()
+set = {1, 5, 3, 7, 30, 17}
+print(set)                          # {1, 17, 7, 5, 3,  30}     keine feste Reihenfolge/Rangordnung. Daher funktionieren index oder slicing methoden nicht
+print(set.index(3))                 # error
+print(len({1, 1, 1}))               # 1     Duplikate werden nicht berücksichtigt
+
+# Sets Methoden
+zahlen = {1, 5, 3, 7, 0}
+print(0 in zahlen)                  # true
+print(10 in zahlen)                 # false
+
+zahlen.add(-10) 
+print(zahlen)                       # {1, 5, 3, 7, 0, -10}
+
+zahlen.remove(-10)  
+print(zahlen)                       # {1, 5, 3, 7, 0}
+
+copy = zahlen.copy()
+copy.clear()
+print(copy)                         # {}      wenn keine echte kopie erstellt wird, wird die clear methode auch auf der mutter set lsite angewandt
+
+liste = list(zahlen)
+print(liste)                        # [1, 5, 3, 7, 0]         jetzt können wieder lsiten methoden angewendet werden 
+
+
+# Dictionaries (schlüssel-wert-paare)
+dict = {
+    "a": "A",
+    "b": "B",
+    "c": "C",
+    1: "Eins"                       # auch int können als key verwendet werden
+}
+
+print(dict.get("a"))                # A
+print(dict.get("d"))                # none
+print (len(dict))                   # 4
+
+# Dict Methoden
+
+passwort_hashes = {
+    "abc123": "twetzerzdbdfabbrsb",
+    "124": "fhrgmnrgg24fben",
+    "99111": "wedfbdfnrlkgn3434t3"
+}
+
+print(passwort_hashes.get("1111", "nicht vorhanden"))   # nicht vorhanden -> default wert, wenn keine Übereinstimmung
+
+passwort_hashes["abc123"] = "123abc"
+print(passwort_hashes)                                  # {"abc123": "123abc", "124": "fhrgmnrgg24fben", "99111": "wedfbdfnrlkgn3434t3"}
+
+passwort_hashes["lol"] = "LOOOOL"                       
+print(passwort_hashes)                                  # {"abc123": "123abc", "124": "fhrgmnrgg24fben", "99111": "wedfbdfnrlkgn3434t3", "lol": "LOOOOL"}
+
+passwort_hashes.update({"hello": "moooin"})             # {"abc123": "123abc", "124": "fhrgmnrgg24fben", "99111": "wedfbdfnrlkgn3434t3", "lol": "LOOOOL", "hello": "mooooin"}   
+passwort_hashes.update({"hello": "ciaoo"})              # {"abc123": "123abc", "124": "fhrgmnrgg24fben", "99111": "wedfbdfnrlkgn3434t3", "lol": "LOOOOL", "hello": "ciaoo"}  
+
+del passwort_hashes["hello"]
+print(passwort_hashes)                                  # {"abc123": "123abc", "124": "fhrgmnrgg24fben", "99111": "wedfbdfnrlkgn3434t3", "lol": "LOOOOL"}
+
+copy_passwort = passwort_hashes.copy()                  # so bleibt orignals dict bestehen undiwrd durch kopiere dict nicht veränder
+copy_passwort.clear()
+print(copy_passwort)                                    # {}
+
+print(list(passwort_hashes.keys()))                     # ["abc123", "124", "99111"]
+print(list(passwort_hashes.values()))                   # ["123abc","fhrgmnrgg24fben","wedfbdfnrlkgn3434t3"]
+
+
+
