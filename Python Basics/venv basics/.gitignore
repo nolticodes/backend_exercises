@@ -1,0 +1,14 @@
+# --- python ---
+
+
+# --- virtuelle umgebung ---
+venv/
+env/
+.env/
+.venv/
+
+# --- Tests / Coverage
+
+# System files
+.DS_Store
+Thumbs.db
