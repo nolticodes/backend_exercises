@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 
-<body onload="render()">
+<body onload="loadToDos()">
     <h1>To Do Liste</h1>
 
     <form onsubmit="addTodo(); return false">
@@ -20,28 +20,51 @@
     </ul>
 
     <script>
-        let todos = [
-            'Einkaufen'
-        ]
+        let todos = [];
 
-        function addTodo() {
-            let todoText = todoinput.value
-            todos.push(todoText)
+        async function loadToDos() {
+            const url = 'http://localhost:3000/todos';
+
+            const resp = await fetch(url);
+            todos = await resp.json();
+
+            render();
+        }
+
+        async function addTodo() {
+            const todoText = todoinput.value;
+
+            const newTodo = {
+                title: todoText
+            };
+
+            const savedTodo = await save(newTodo);
+
+            todos.push(savedTodo);
+
             todoinput.value = "";
-            save();
+
             render();
         }
 
         function render() {
             todolist.innerHTML = "";
-            todos.forEach(todo => todolist.innerHTML += `<li>${todo}</li>`);
+
+            todos.forEach(todo => {
+                todolist.innerHTML += `<li>${todo.title}</li>`;
+            });
         }
 
-        function save() {
-            fetch('http://127.0.0.1/todos', {
-                body: JSON.stringify(todos),
-                method: 'PUT'
+        async function save(todo) {
+            const response = await fetch('http://localhost:3000/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(todo)
             });
+
+            return await response.json();
         }
     </script>
 </body>

@@ -1,0 +1,17 @@
+{
+  "todos": [
+    {
+      "title": "Obst",
+      "id": "-jDVamz4Oeg"
+    },
+    {
+      "title": "Milch",
+      "id": "rE1N450RC_A"
+    },
+    {
+      "title": "wergweg",
+      "id": "0aYoGcADRnw"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
