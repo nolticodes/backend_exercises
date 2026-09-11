@@ -7,6 +7,8 @@ from django.utils.text import slugify
 
 from django.urls import reverse
 
+import json
+
 # Create your views here.
 
 def start_page_view(request):
@@ -29,3 +31,12 @@ def single_gadget_slug_view(request, gadget_slug):
     if gadget_match:
         return JsonResponse(gadget_match)
     raise Http404("nichts da")
+
+def single_gadget_post_view(request): 
+    if request.method == "POST":
+        try: 
+            data = json.loads(request.body)
+            print(f"received data: {data}")
+            return JsonResponse({"response": "Das war was"})
+        except:
+            return JsonResponse({"response": "Das war wohl nix"})
