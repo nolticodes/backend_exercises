@@ -8,10 +8,20 @@ class Customer(models.Model):
     newsletter_abo = models.BooleanField(default=True)
     email_address = models.CharField(blank=True, max_length=40, default="")
     account = models.FloatField(blank=True, null=True)
+    slug = models.SlugField(blank=True, default="")
     # one-to-many Order
+
+    class Meta:
+         verbose_name = "Customer"          # Spaltenüberschrift, wenn in admin.py ansicht nicht anders definiert ist
+         verbose_name_plural = "Customers"  # Kategerie Namen (links im panel) lassen sich überschreiben, da automatisch ein s hinten dran gehängt wird.
+         ordering = ["first_name"]          # sortierung in der listenansicht nach alphabet, es gibt viele verschiedene
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def save(self):
+         self.account = 651681
+         return super().save()
 
 class Product(models.Model):
     name = models.CharField(max_length=30)
