@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Customer(models.Model):
-    first_name = models.CharField(max_length=30, help_text="max 30 letters", error_messages="hoppla")
+    first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     newsletter_abo = models.BooleanField(default=True)
     email_address = models.CharField(blank=True, max_length=40, default="")
@@ -11,17 +11,17 @@ class Customer(models.Model):
     slug = models.SlugField(blank=True, default="")
     # one-to-many Order
 
-    class Meta:
-         verbose_name = "Customer"          # Spaltenüberschrift, wenn in admin.py ansicht nicht anders definiert ist
-         verbose_name_plural = "Customers"  # Kategerie Namen (links im panel) lassen sich überschreiben, da automatisch ein s hinten dran gehängt wird.
-         ordering = ["first_name"]          # sortierung in der listenansicht nach alphabet, es gibt viele verschiedene
+    # class Meta:
+    #      verbose_name = "Customer"          # Spaltenüberschrift, wenn in admin.py ansicht nicht anders definiert ist
+    #      verbose_name_plural = "Customers"  # Kategerie Namen (links im panel) lassen sich überschreiben, da automatisch ein s hinten dran gehängt wird.
+    #      ordering = ["first_name"]          # sortierung in der listenansicht nach alphabet, es gibt viele verschiedene
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-    def save(self):
-         self.account = 651681
-         return super().save()
+    # def save(self):
+    #      self.account = 651681
+    #      return super().save()
 
 class Product(models.Model):
     name = models.CharField(max_length=30)
