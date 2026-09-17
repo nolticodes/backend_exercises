@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Customer(models.Model):
-    first_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30, help_text="max 30 letters", error_messages="hoppla")
     last_name = models.CharField(max_length=30)
     newsletter_abo = models.BooleanField(default=True)
     email_address = models.CharField(blank=True, max_length=40, default="")
