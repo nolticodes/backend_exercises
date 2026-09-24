@@ -1,7 +1,8 @@
 
 from django.urls import path, include
-from .views import first_view
+from .views import market_view, markets_single_view
 
 urlpatterns = [
-    path('', first_view)
+    path('', market_view),
+    path('<int:pk>/', markets_single_view)
 ]
