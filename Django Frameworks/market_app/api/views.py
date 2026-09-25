@@ -4,7 +4,31 @@ from rest_framework import status
 from .serializers import MarketSerializer, SellerSerializer, MarketHyperSerializer
 from market_app.models import Market
 from market_app.models import Seller
+from rest_framework.views import APIView
+from rest_framework import mixins
+from rest_framework import generics
 
+class MarketView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+
+    queryset = Market.objects.all()
+    serializer_class = MarketSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class SellerView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+
+    queryset = Seller.objects.all()
+    serializer_class = SellerSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 @api_view(['GET', 'POST'])
 def market_view(request):
