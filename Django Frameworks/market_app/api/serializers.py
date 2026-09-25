@@ -17,7 +17,7 @@ def validate_noX(value):
 
 class MarketSerializer(serializers.ModelSerializer):
 
-    sellers = serializers.HyperlinkedRelatedField(many = True, read_only = True, view_name='seller_single')
+    sellers = serializers.StringRelatedField(many = True, read_only = True)
 
     class Meta:
          model = Market
@@ -25,6 +25,15 @@ class MarketSerializer(serializers.ModelSerializer):
 
     def validate_location(self, value):
         return validate_noX(value)
+
+
+class MarketHyperSerializer(MarketSerializer, serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+         model = Market
+         exclude = []
+
+
 
 class SellerSerializer(serializers.ModelSerializer):
      markets = MarketSerializer(many = True, read_only = True)
