@@ -17,9 +17,11 @@ def validate_noX(value):
 
 class MarketSerializer(serializers.ModelSerializer):
 
+    sellers = serializers.HyperlinkedRelatedField(many = True, read_only = True, view_name='seller_single')
+
     class Meta:
          model = Market
-         fields = '__all__'
+         exclude = []
 
     def validate_location(self, value):
         return validate_noX(value)
@@ -32,7 +34,14 @@ class SellerSerializer(serializers.ModelSerializer):
           write_only = True,
           source = 'markets'
      )
+
+     market_count = serializers.SerializerMethodField()
+
      class Meta:
           model = Seller
-          exclude = []
+          fields = ["id", "name", "market_count", "market_ids", "markets", "contact_info",]
+
+     def get_market_count(self, obj):
+          return obj.markets.count()
+     
     
