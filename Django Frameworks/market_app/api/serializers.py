@@ -24,29 +24,15 @@ class MarketSerializer(serializers.ModelSerializer):
     def validate_location(self, value):
         return validate_noX(value)
 
-
-class SellerDetailsSerializer(serializers.Serializer):
-     id = serializers.IntegerField(read_only = True)
-     name = serializers.CharField(max_length = 255)
-     contact_info = serializers.CharField()
-    #  markets = MarketSerializer(many = True, read_only = True)
-     markets = serializers.StringRelatedField(many = True)
-
-class SellerCreateSerializer(serializers.Serializer):
-     name = serializers.CharField( max_length = 255)
-     contact_info = serializers.CharField(max_length = 255)
-     markets = serializers.ListField(child=serializers.IntegerField(), write_only = True)
-     
-
-     def validate_markets(self, value):
-        markets = Market.objects.filter(id__in = value)
-        if len(markets) != len(value):
-             raise serializers.ValidationError('one or more markets not found')
-        return value
-
-     def create(self, validated_data):
-          market_ids = validated_data.pop('markets')
-          seller = Seller.objects.create(**validated_data)
-          markets = Market.objects.filter(id__in=market_ids)
-          seller.markets.set(markets)
-          return seller
+class SellerSerializer(serializers.ModelSerializer):
+     markets = MarketSerializer(many = True, read_only = True)
+     market_ids = serializers.PrimaryKeyRelatedField(
+          queryset = Market.objects.all(),
+          many = True,
+          write_only = True,
+          source = 'markets'
+     )
+     class Meta:
+          model = Seller
+          exclude = []
+    
