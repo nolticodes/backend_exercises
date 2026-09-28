@@ -28,7 +28,6 @@ class MarketSerializer(serializers.ModelSerializer):
     def validate_location(self, value):
         return validate_noX(value)
 
-
 class MarketHyperSerializer(MarketSerializer, serializers.HyperlinkedModelSerializer):
 
     def __init__(self, *args, **kwargs):
