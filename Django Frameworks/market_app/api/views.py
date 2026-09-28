@@ -30,6 +30,32 @@ class SellerView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Generi
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+class MarketSingleView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView,):
+    queryset = Market.objects.all()
+    serializer_class = MarketSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+class SellerSingleView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView,):
+    queryset = Seller.objects.all()
+    serializer_class = SellerSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
 @api_view(['GET', 'POST'])
 def market_view(request):
     if request.method == 'GET':
