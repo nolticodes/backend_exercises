@@ -8,17 +8,14 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 
-class MarketView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-
+class MarketView(generics.ListCreateAPIView):
     queryset = Market.objects.all()
     serializer_class = MarketSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
+class MarketSingleView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Market.objects.all()
+    serializer_class = MarketSerializer
+    
 class SellerView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
 
     queryset = Seller.objects.all()
@@ -29,19 +26,6 @@ class SellerView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Generi
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
-
-class MarketSingleView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView,):
-    queryset = Market.objects.all()
-    serializer_class = MarketSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
 
 class SellerSingleView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView,):
     queryset = Seller.objects.all()
@@ -55,6 +39,13 @@ class SellerSingleView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixin
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+class SellerOfMarketList(generics.ListAPIView):
+    serializer_class = SellerSerializer
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        market = Market.objects.get(pk = pk)
+        return market.sellers.all()
 
 @api_view(['GET', 'POST'])
 def market_view(request):
