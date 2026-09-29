@@ -1,12 +1,55 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import MarketSerializer, SellerSerializer, MarketHyperSerializer, SellerListSerializer
+from .serializers import MarketSerializer, SellerSerializer, MarketHyperSerializer, SellerListSerializer, ProductSerialozer
 from market_app.models import Market
 from market_app.models import Seller
+from market_app.models import Product
 from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerialozer
+
+class ProductViewSetOld(viewsets.ViewSet):
+    queryset = Product.objects.all()
+
+    def list(self, request):
+        serializer = ProductSerialozer(self.queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        product = get_object_or_404(self.queryset, pk=pk)
+        serializer = ProductSerialozer(product)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = ProductSerialozer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors)
+
+    def destroy(self, request, pk=None):
+        product = get_object_or_404(self.queryset, pk=pk)
+        serializer = ProductSerialozer(product)
+        product.delete()
+        return Response(serializer.data)
+    
+
+{
+    "name": "Ich bin ein Produkt",
+    "description": "Ich bin eine Beschreibung",
+    "price": 199.99,
+    "market": 2,
+    "seller": 2
+}
 
 class MarketView(generics.ListCreateAPIView):
     queryset = Market.objects.all()

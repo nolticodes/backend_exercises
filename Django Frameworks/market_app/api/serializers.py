@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from market_app.models import Market, Seller
+from market_app.models import Market, Seller, Product
 
 
 def validate_noX(value):
@@ -15,6 +15,11 @@ def validate_noX(value):
         raise serializers.ValidationError(errors)
 
     return value
+
+class ProductSerialozer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
 
 
 class MarketSerializer(serializers.ModelSerializer):
