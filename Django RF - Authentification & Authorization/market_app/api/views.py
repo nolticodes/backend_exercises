@@ -9,12 +9,12 @@ from .permissions import IsStaffOrReadOnly, HasHugoNotInName, IsAdminForDeleteOr
 class ManufacturerList(generics.ListCreateAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
-    permission_classes = [HasHugoNotInName & IsStaffOrReadOnly] #IsStaffOrReadOnly |    # später hinzufügen!
+    permission_classes = [IsAuthenticated] # HasHugoNotInName & IsStaffOrReadOnly
 
 class ManufacturerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
-    permission_classes = [IsAdminForDeleteOrPatchAndReadOnly]      # später hinzufügen!
+    permission_classes = [IsAdminForDeleteOrPatchAndReadOnly]
 
 
 class ProductList(generics.ListCreateAPIView):
